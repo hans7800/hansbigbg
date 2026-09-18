@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeoFinance Globe</title>
+  <meta name="description" content="Globe terrestre 3D en temps réel : cliquez ou zoomez sur un pays pour voir ses indicateurs économiques (PIB, inflation, chômage...) et ses actualités financières.">
+  <link rel="preconnect" href="https://api.worldbank.org">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="globe"></div>
+
+  <header id="topbar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <h1>GeoFinance <span>Globe</span></h1>
+    </div>
+
+    <form id="search-form" autocomplete="off">
+      <input id="search" type="search" list="country-list" placeholder="Rechercher un pays… (ex. Japon)" aria-label="Rechercher un pays">
+      <datalist id="country-list"></datalist>
+    </form>
+
+    <div class="quick" id="quick-links" aria-label="Accès rapide"></div>
+
+    <div class="status">
+      <div class="clock" title="Temps universel coordonné">
+        <span id="clock">--:--:--</span> UTC
+      </div>
+      <div class="sun" id="sun-info" title="Position du soleil (point subsolaire)">☀ --</div>
+      <button id="btn-rotate" class="icon-btn" title="Rotation automatique" aria-pressed="true">⟳</button>
+      <button id="btn-reset" class="icon-btn" title="Vue globale">⌂</button>
+      <button id="btn-settings" class="icon-btn" title="Paramètres">⚙</button>
+    </div>
+  </header>
+
+  <aside id="panel" class="hidden" aria-live="polite">
+    <button id="panel-close" class="icon-btn close" title="Fermer">✕</button>
+    <div id="panel-body">
+      <div class="panel-empty">Sélectionnez un pays sur le globe.</div>
+    </div>
+  </aside>
+
+  <footer id="ticker">
+    <div class="ticker-label">Devises (BCE)</div>
+    <div class="ticker-track" id="ticker-track"><span class="muted">Chargement des cours…</span></div>
+  </footer>
+
+  <div id="hint">Faites tourner le globe, cliquez ou zoomez sur un pays pour afficher ses données économiques et ses actualités.</div>
+
+  <dialog id="settings">
+    <form method="dialog">
+      <h2>Paramètres</h2>
+      <label>Langue des actualités
+        <select id="opt-lang">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label>Clé API GNews.io (optionnelle)
+        <input id="opt-gnews" type="text" placeholder="Améliore la fiabilité des actualités">
+      </label>
+      <p class="muted small">Sans clé, les actualités proviennent du flux RSS Google Actualités via un relais public. Les données économiques viennent de la Banque mondiale, les taux de change de la BCE (Frankfurter).</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">Annuler</button>
+        <button id="opt-save" value="save" class="btn">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="vendor/globe.gl.min.js"></script>
+  <script src="vendor/topojson-client.min.js"></script>
+  <script src="js/countries.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
